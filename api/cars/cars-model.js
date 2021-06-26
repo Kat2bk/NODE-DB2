@@ -5,17 +5,17 @@ const getAll = () => {
 }
 
 const getById = (id) => {
-  return db('cars').where({id}).first()
+  return db('cars').where('id', id).first()
 }
 
 const create = async (car) => {
-  const [id] = db('cars').insert(car, [id])
+  const [id] = await db('cars').insert(car, ['id'])
   return getById(id)
 }
 
 // getVin function
 const getVin = (vin) => {
-  return db('cars').where({vin}).first()
+  return db('cars').where('vin', vin).first()
 }
 
 module.exports = {

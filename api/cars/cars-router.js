@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
 
 
 // getById
-router.get('/:id', checkCarId, async (req, res, next) => {
+router.get('/:id', checkCarId, (req, res, next) => {
     try {
         res.status(200).json(req.cars)
     } catch (error) {
@@ -28,14 +28,16 @@ router.get('/:id', checkCarId, async (req, res, next) => {
 
 router.post('/', checkCarPayload, checkVinNumberValid, checkVinNumberUnique, async (req, res, next) => {
     try {
-        res.status(201).json(req.body)
+        const newCar = await Cars.create(req.body)
+        res.status(201).json(newCar)
     } catch (error) {
         next(error)
     }
 })
 
 
-server.use(function(err, req, res, next) {
+router.use(function(err, req, res, next) {
+    console.error(err.stack)
     res.status(err.status || 500)
     res.render({
         message: err.message,
