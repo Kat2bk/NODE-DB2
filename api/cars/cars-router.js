@@ -35,6 +35,9 @@ router.post('/', checkCarPayload, checkVinNumberValid, checkVinNumberUnique, asy
     }
 })
 
+// testing: 4 failed, 9 passed.
+// then it said there were no failed tests
+
 
 router.use(function(err, req, res, next) {
     console.error(err.stack)
